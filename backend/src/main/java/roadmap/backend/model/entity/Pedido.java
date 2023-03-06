@@ -1,25 +1,47 @@
-package model.entity;
+package roadmap.backend.model.entity;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "pedido")
 public class Pedido {
-	private int idPedido;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer idPedido;
+	
+	@Column(nullable = false)
 	private String codigoPedido;
+	
+	@Column(nullable = false)
 	private Double valorPedido;
+	
+	@Column(nullable = false)
 	private boolean pagamento;
 	
-	public Pedido(int idPedido, String codigoPedido, Double valorPedido, boolean pagamento) {
-		super();
-		this.codigoPedido = codigoPedido;
-		this.valorPedido = valorPedido;
-		this.pagamento = pagamento;
-		this.idPedido = idPedido;
-	}
+	@ManyToOne
+	@JoinColumn(name = "idCliente") 
+	private Cliente cliente;
 	
-	public int getIdPedido() {
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public Integer getIdPedido() {
 		return idPedido;
 	}
-	public void setIdPedido(int idPedido) {
+	public void setIdPedido(Integer idPedido) {
 		this.idPedido = idPedido;
 	}
 	public String getCodigoPedido() {
